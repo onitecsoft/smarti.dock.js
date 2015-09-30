@@ -18,3 +18,10 @@ include smarti.dock.js
 	</div>
 </div>
 ```
+
+Each dock container must contain next:
+```
+<div data-dock="true"></div> - dockable panel
+<div data-handle="true"></div> - dockable panel handler
+<div data-content="true"></div> - content panel
+```
