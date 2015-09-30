@@ -2,9 +2,9 @@
 
 JQuery dockable panel
 
-Using:
-include jquery.js 
-include smarti.dock.js 
+Using:	
+include jquery.js	
+include smarti.dock.js	
 ```html
 <div data-name="dock" data-smarti="dock" data-dock-position="top" style="height:300px">
 	<div data-dock="true" style="background-color:#888; padding:20px; width:100%">
