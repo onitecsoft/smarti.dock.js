@@ -1,2 +1,3 @@
 # smarti.dock.js
-Jquery dockable panel
+
+JQuery dockable panel
