@@ -19,9 +19,18 @@ include smarti.dock.js
 </div>
 ```
 
-Each dock container must contain next:
+Dock container
 ```
+data-name="<name>" - the name of javascript dock instance
+data-smarti="dock" - type of instance (smarti.dock)
+data-dock-position="top|right|bottom|left" - position of dockable panel
+```
+
+Each dock container must contain next:
+```html
 <div data-dock="true"></div> - dockable panel
 <div data-handle="true"></div> - dockable panel handler
 <div data-content="true"></div> - content panel
 ```
+
+User should apply his own css styles to get nice visual effect
