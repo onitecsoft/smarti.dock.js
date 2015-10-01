@@ -20,11 +20,11 @@ include smarti.dock.js
 ```
 
 Dock container
-```
-data-name="<name>"				- the name of javascript dock instance
-data-smarti="dock"				- type of instance (smarti.dock)
-data-dock-position="top|right|bottom|left"	- position of dockable panel (default:left)
-data-docked="true|false"			- dock initial state (default:false)
+```html
+data-name="<name>" - the name of javascript dock instance
+data-smarti="dock" - type of instance (smarti.dock)
+data-dock-position="top|right|bottom|left" - position of dockable panel (default:left)
+data-docked="true|false" - defines if dock panel is docked (default:true)
 ```
 
 Each dock container must contain next elements:
