@@ -3,7 +3,7 @@ var smarti = window['smarti'] || {};
 smarti.dock = function (jq, opts) {
 	var that = this;
 	this.dockPosition = 'left';
-	this.docked = false;
+	this.docked = true;
 	this.container = jq.css({ overflow: 'hidden' });
 	$.extend(that, opts);
 
@@ -19,23 +19,23 @@ smarti.dock = function (jq, opts) {
 	this._ds = function () { return that._ap() == 'top' ? that._dw() : that._dh() }
 	this._ho = parseInt(this.handle[0].style[this.dockPosition]) || 0;
 
-	this.content.css(this.dockPosition, this.docked ? 0 : this._ds());
-	this.dock.css(this.dockPosition, this.docked ? -this._ds() : 0);
+	this.content.css(this.dockPosition, this.docked ? this._ds() : 0);
+	this.dock.css(this.dockPosition, this.docked ? 0 : -this._ds());
 	this.dock.css(this._ap(), 0).css(this._ap2(), 0);
-	this.handle.css(this.dockPosition, this.docked ? this._ho : this._ho + this._ds());
+	this.handle.css(this.dockPosition, this.docked ? this._ho + this._ds() : this._ho);
 	
 	this.toggle = function () {
 		that.docked = !that.docked;
 		that.slide();
 
 		var o = {};
-		o[that.dockPosition] = that.docked ? 0 : that._ds();
+		o[that.dockPosition] = that.docked ? that._ds() : 0;
 		that.content.animate(o);
 	}
 	this.slide = function () {
 		var o1 = {}, o2 = {};
-		o1[that.dockPosition] = that.docked ? -that._ds() : 0;
-		o2[that.dockPosition] = that.docked ? that._ho : that._ho + that._ds();
+		o1[that.dockPosition] = that.docked ? 0 : -that._ds();
+		o2[that.dockPosition] = that.docked ? that._ho + that._ds() : that._ho;
 		that.dock.animate(o1);
 		that.handle.animate(o2);
 	}
