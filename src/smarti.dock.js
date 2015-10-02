@@ -12,34 +12,45 @@ smarti.dock = function (jq, opts) {
 	this.handle = this.container.children('[data-handle]').css({ position: 'absolute', zIndex: 2 });
 	this.content = this.container.children('[data-content]').css({ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 });
 
-	this._dw = function () { return that.dock.outerWidth(true) }
-	this._dh = function () { return that.dock.outerHeight(true) }
-	this._ap = function () { return that.dockPosition == 'left' || that.dockPosition == 'right' ? 'top' : 'left' }
-	this._ap2 = function () { return that.dockPosition == 'left' || that.dockPosition == 'right' ? 'bottom' : 'right' }
-	this._ds = function () { return that._ap() == 'top' ? that._dw() : that._dh() }
+	this._ap = function () { return that.dockPosition == 'left' || that.dockPosition == 'right' ? ['top', 'bottom'] : ['left', 'right'] }
+	this._ds = function () { return that._ap()[0] == 'top' ? that.dock.outerWidth(true) : that.dock.outerHeight(true) }
 	this._ho = parseInt(this.handle[0].style[this.dockPosition]) || 0;
 
 	this.content.css(this.dockPosition, this.docked ? this._ds() : 0);
 	this.dock.css(this.dockPosition, this.docked ? 0 : -this._ds());
-	this.dock.css(this._ap(), 0).css(this._ap2(), 0);
+	this.dock.css(this._ap()[0], 0).css(this._ap()[1], 0);
 	this.handle.css(this.dockPosition, this.docked ? this._ho + this._ds() : this._ho);
 	
+	this._setHover = function () {
+		if (!that.docked) that.content.mousemove(that._trySlide);
+		else { that._hover = false; that.content.off(); }
+	}
+	this._trySlide = function (e) {
+		var o = that._ap()[0] == 'top' ? e.offsetX : e.offsetY;
+		if (that.dockPosition == 'right') o = that.content.outerWidth() - o;
+		else if (that.dockPosition == 'bottom') o = that.content.outerHeight() - o;
+		if ((!that._hover && o < 10) || (that._hover && o > that._ds() + 10)) {
+			that._hover = !that._hover;
+			that.slide();
+		}
+	}
 	this.toggle = function () {
 		that.docked = !that.docked;
-		that.slide();
-
 		var o = {};
 		o[that.dockPosition] = that.docked ? that._ds() : 0;
 		that.content.animate(o);
+		that.slide();
+		that._setHover();
 	}
 	this.slide = function () {
 		var o1 = {}, o2 = {};
-		o1[that.dockPosition] = that.docked ? 0 : -that._ds();
-		o2[that.dockPosition] = that.docked ? that._ho + that._ds() : that._ho;
+		o1[that.dockPosition] = that.docked || that._hover ? 0 : -that._ds();
+		o2[that.dockPosition] = that.docked || that._hover ? that._ho + that._ds() : that._ho;
 		that.dock.animate(o1);
 		that.handle.animate(o2);
 	}
 	this.handle.click(this.toggle);
+	this._setHover();
 }
 
 $(function () {
