@@ -3,7 +3,6 @@ var smarti = window['smarti'] || {};
 smarti.dock = function (jq, opts) {
 	var that = this;
 	this.dockPosition = 'left';
-	this.docked = true;
 	this.container = jq.css({ overflow: 'hidden' });
 	$.extend(that, opts);
 
@@ -15,15 +14,17 @@ smarti.dock = function (jq, opts) {
 	this._ap = function () { return that.dockPosition == 'left' || that.dockPosition == 'right' ? ['top', 'bottom'] : ['left', 'right'] }
 	this._ds = function () { return that._ap()[0] == 'top' ? that.dock.outerWidth(true) : that.dock.outerHeight(true) }
 	this._ho = parseInt(this.handle[0].style[this.dockPosition]) || 0;
-
-	this.content.css(this.dockPosition, this.docked ? this._ds() : 0);
-	this.dock.css(this.dockPosition, this.docked ? 0 : -this._ds());
-	this.dock.css(this._ap()[0], 0).css(this._ap()[1], 0);
-	this.handle.css(this.dockPosition, this.docked ? this._ho + this._ds() : this._ho);
 	
 	this._setHover = function () {
 		if (!that.docked) that.content.mousemove(that._trySlide);
 		else { that._hover = false; that.content.off(); }
+	}
+	this._setDocked = function (docked) {
+		that.docked = docked;
+		if (sessionStorage != null) sessionStorage[that.name + 'Docked'] = docked ? '1' : '0';
+	}
+	this._getDocked = function () {
+		return sessionStorage != null && sessionStorage[that.name + 'Docked'] != null ? sessionStorage[that.name + 'Docked'] == '1' : true;
 	}
 	this._trySlide = function (e) {
 		var o = that._ap()[0] == 'top' ? e.offsetX : e.offsetY;
@@ -35,7 +36,7 @@ smarti.dock = function (jq, opts) {
 		}
 	}
 	this.toggle = function () {
-		that.docked = !that.docked;
+		that._setDocked(!that.docked);
 		var o = {};
 		o[that.dockPosition] = that.docked ? that._ds() : 0;
 		that.content.animate(o);
@@ -49,6 +50,11 @@ smarti.dock = function (jq, opts) {
 		that.dock.animate(o1);
 		that.handle.animate(o2);
 	}
+	this.docked = this._getDocked();
+	this.content.css(this.dockPosition, this.docked ? this._ds() : 0);
+	this.dock.css(this.dockPosition, this.docked ? 0 : -this._ds());
+	this.dock.css(this._ap()[0], 0).css(this._ap()[1], 0);
+	this.handle.css(this.dockPosition, this.docked ? this._ho + this._ds() : this._ho);
 	this.handle.click(this.toggle);
 	this._setHover();
 }
