@@ -24,7 +24,8 @@ Dock container
 data-name="<name>" - the name of javascript dock instance
 data-smarti="dock" - type of instance (smarti.dock)
 data-dock-position="top|right|bottom|left" - position of dockable panel (default:left)
-data-docked="true|false" - defines if dock panel is docked (default:true)
+data-docked="true|false" - defines if dock panel is docked on load (default:true)
+data-use-storage="session|local" - defines where to store docked state: sessionStorage or localStorage (default:null)
 ```
 
 Each dock container must contain next elements:
