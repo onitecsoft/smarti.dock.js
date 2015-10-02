@@ -10,7 +10,7 @@ include smarti.dock.js
 	<div data-dock="true" style="background-color:#888; padding:20px">
 		menu<br />menu<br />menu
 	</div>
-	<div data-handle="true" style="background-color:#abcdef; cursor:pointer">HANDLE</div>
+	<div data-handle="true" style="background-color:#abcdef; cursor:pointer; bottom:-10px">HANDLE</div>
 	<div data-content="true" style="overflow:auto; padding:20px; background-color:#eee">
 		content<br />content<br />content<br />content<br />content<br />
 		content<br />content<br />content<br />content<br />content<br />
