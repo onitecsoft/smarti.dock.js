@@ -1,6 +1,6 @@
 # smarti.dock.js
 
-JQuery dockable panel. When hidden it slides over content on mouseover.
+JQuery dockable panel. Can be docked to content or autoslide on mouseover when hidden.
 
 Using:	
 include jquery.js	
