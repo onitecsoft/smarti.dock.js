@@ -6,7 +6,7 @@ smarti.dock = function (jq, opts) {
 	this.container = jq.css({ overflow: 'hidden' });
 	$.extend(that, opts);
 
-	if (this.container[0].style.position != 'absolute') this.container.css('position', 'relative');
+	if (this.container.css('position') != 'absolute') this.container.css('position', 'relative');
 	this.dock = this.container.children('[data-dock]').css({ position: 'absolute', zIndex: 1 });
 	this.handle = this.container.children('[data-handle]').css({ position: 'absolute', zIndex: 2 });
 	this.content = this.container.children('[data-content]').css({ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 });
@@ -14,8 +14,8 @@ smarti.dock = function (jq, opts) {
 
 	this._ap = function () { return that.dockPosition == 'left' || that.dockPosition == 'right' ? ['top', 'bottom'] : ['left', 'right'] }
 	this._ds = function () { return that._ap()[0] == 'top' ? that.dock.outerWidth(true) : that.dock.outerHeight(true) }
-	this._ho = parseInt(this.handle[0].style[this.dockPosition]) || 0;
-	
+	this._ho = parseInt(this.handle.css(this.dockPosition)) || 0;
+
 	this._setHover = function () {
 		if (!that.docked) that.content.mousemove(that._trySlide);
 		else { that._hover = false; that.content.off(); }
