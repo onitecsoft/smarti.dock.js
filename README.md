@@ -1,6 +1,6 @@
 # smarti.dock.js
 
-JQuery dockable panel. Can be docked to content or autoslide on mouseover when hidden.
+JQuery dockable floating panel. Can be docked to content or autoslide on mouseover when hidden.
 
 JSBin: https://jsbin.com/mapili/edit
 
