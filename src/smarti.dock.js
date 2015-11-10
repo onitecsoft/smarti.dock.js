@@ -62,9 +62,11 @@ smarti.dock = function (jq, opts) {
 }
 
 $(function () {
-	$.each($('[data-smarti]'), function () {
-		var obj = $(this);
-		var opts = obj.data();
-		window[opts.name] = new smarti[opts['smarti']](obj, opts);
-	});
+	if (!smarti.initialized) {
+		smarti.initialized = true;
+		$.each($('[data-smarti]'), function () {
+			var opts = $(this).data();
+			window[opts.name] = new smarti[opts['smarti']]($(this), opts);
+		});
+	}
 })
