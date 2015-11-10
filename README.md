@@ -36,5 +36,3 @@ Each dock container must contain next elements:
 <div data-handle="true">...</div>	- dockable panel handler (position can be changed by setting css rule of top,right,bottom or left)
 <div data-content="true">...</div>	- content panel
 ```
-
-User should apply his own css styles to get nice visual effect
