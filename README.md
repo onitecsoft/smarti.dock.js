@@ -24,7 +24,7 @@ JQuery floating dock panel. Can be docked to content or autoslide on mouseover w
 ```
 <b>Container attributes</b>
 
-Can be applied any css class or style.
+Can be applied any css style.
 
 attribute name | description
 --- | ---
@@ -36,12 +36,11 @@ data-use-storage="session \| local" | defines where to store docked state: sessi
 
 <b>Dock panel attributes</b>
 
-Can be applied any css class or style.
+Can be applied any css style.
 
 <b>Dock handle attributes</b>
 
-Can be applied any css class or style.
-Handle position can be defined by setting css rule of top,right,bottom or left.
+Can be applied any css style. Handle position can be defined by setting css rule of top,right,bottom or left.
 
 Example: `style="top:20px; left:-10px"`
 
