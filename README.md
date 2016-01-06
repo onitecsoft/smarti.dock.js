@@ -42,6 +42,7 @@ Can be applied any css class or style.
 
 Can be applied any css class or style.
 Handle position can be defined by setting css rule of top,right,bottom or left.
+
 Example: `style="top:20px; left:-10px"`
 
 <b>Content panel attributes</b>
