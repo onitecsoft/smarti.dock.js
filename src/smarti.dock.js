@@ -18,10 +18,10 @@ $.fn.smarti = function () {
 smarti.dock = function (jq, opts) {
 	var that = this;
 	this.dockPosition = 'left';
+	this.dockOffset = 10;
 	this.container = jq.css({ overflow: 'hidden' });
 	$.extend(that, opts);
 
-	this.dockOffset = 10;
 	if (this.container.css('position') != 'absolute') this.container.css({ position: 'relative' });
 	this.dock = this.container.children('[data-dock]').css({ position: 'absolute', zIndex: 1 });
 	this.handle = this.container.children('[data-handle]').css({ position: 'absolute', zIndex: 2 });
