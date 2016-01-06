@@ -1,5 +1,20 @@
 var smarti = window['smarti'] || {};
 
+$(function () {
+	if (!smarti.initialized) {
+		smarti.initialized = true;
+		$('[data-smarti]').smarti();
+	}
+})
+
+$.fn.smarti = function () {
+	$.each(this.selector == '[data-smarti]' ? this : this.find('[data-smarti]'), function () {
+		var jq = $(this);
+		var opts = jq.data();
+		window[opts.name] = new smarti[opts['smarti']](jq, opts);
+	});
+}
+
 smarti.dock = function (jq, opts) {
 	var that = this;
 	this.dockPosition = 'left';
@@ -14,7 +29,7 @@ smarti.dock = function (jq, opts) {
 
 	this._ap = function () { return that.dockPosition == 'left' || that.dockPosition == 'right' ? ['top', 'bottom'] : ['left', 'right'] }
 	this._ds = function () { return that._ap()[0] == 'top' ? that.dock.outerWidth(true) : that.dock.outerHeight(true) }
-	this._ho = parseInt(this.handle.css(this.dockPosition)) || 0;
+	this.handle.each(function () { var jq = $(this); jq.data('o', parseInt(jq.css(that.dockPosition)) || 0); });
 
 	this._setHover = function () {
 		if (!that.docked) that.content.mousemove(that._trySlide);
@@ -42,31 +57,32 @@ smarti.dock = function (jq, opts) {
 		var o = {};
 		o[that.dockPosition] = that.docked ? that._ds() : 0;
 		that.content.animate(o);
-		that.slide();
-		that._setHover();
+		that.slide(function () { that._setHover(); that.toggleHandle(); });
 	}
-	this.slide = function () {
-		var o1 = {}, o2 = {};
-		o1[that.dockPosition] = that.docked || that._hover ? 0 : -that._ds();
-		o2[that.dockPosition] = that.docked || that._hover ? that._ho + that._ds() : that._ho;
-		that.dock.animate(o1);
-		that.handle.animate(o2);
+	this.toggleHandle = function () {
+		that.handle.not("[data-handle='hidden']").toggle(that.docked);
+		that.handle.filter("[data-handle='hidden']").toggle(!that.docked);
+	}
+	this.slide = function (cb) {
+		var o1 = {}, o2 = {}; ds = that._ds();
+		o1[that.dockPosition] = that.docked || that._hover ? 0 : -ds;
+		that.dock.animate(o1, cb);
+		that.handle.each(function () {
+			var jq = $(this);
+			var o = jq.data('o');
+			o2[that.dockPosition] = that.docked || that._hover ? ds + o : o;
+			jq.animate(o2);
+		});
 	}
 	this.docked = this._getDocked();
 	this.content.css(this.dockPosition, this.docked ? this._ds() : 0);
 	this.dock.css(this.dockPosition, this.docked ? 0 : -this._ds());
 	this.dock.css(this._ap()[0], 0).css(this._ap()[1], 0);
-	this.handle.css(this.dockPosition, this.docked ? this._ho + this._ds() : this._ho);
 	this.handle.click(this.toggle);
 	this._setHover();
-}
-
-$(function () {
-	if (!smarti.initialized) {
-		smarti.initialized = true;
-		$.each($('[data-smarti]'), function () {
-			var opts = $(this).data();
-			window[opts.name] = new smarti[opts['smarti']]($(this), opts);
-		});
+	this.toggleHandle();
+	if (this.docked) {
+		this.handle.each(function () { var jq = $(this); jq.css(that.dockPosition, that._ds() + jq.data('o')); });
 	}
-})
+	return this;
+}
