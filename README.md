@@ -2,22 +2,24 @@
 
 JQuery floating dock panel. Can be docked to content or autoslide on mouseover when hidden.
 
-JSBin: https://jsbin.com/mapili/edit
+<b>JSBin:</b> https://jsbin.com/mapili/edit
 
-Using:	
-include jquery.js	
-include smarti.dock.js	
+<b>Struncture:</b>
+
 ```html
-<div data-name="dock" data-smarti="dock" data-dock-position="bottom" style="height:300px">
-	<div data-dock="true" style="background-color:#888; padding:20px">
-		menu<br />menu<br />menu
-	</div>
-	<div data-handle="true" style="background-color:#abcdef; cursor:pointer; bottom:-10px">HANDLE</div>
-	<div data-content="true" style="overflow:auto; padding:20px; background-color:#eee">
-		content<br />content<br />content<br />content<br />content<br />
-		content<br />content<br />content<br />content<br />content<br />
-		content<br />content<br />content<br />content<br />content<br />
-	</div>
+<div ...> - container
+  <div data-dock="true"> - dock panel (required)
+    ...
+  </div>
+  <div data-handle="docked"> - default dock handle (required)
+    ...
+  </div>
+  <div data-handle="hidden"> - alternative dock handle when dock is hidden (optional)
+    ...
+  </div>
+  <div data-content="true"> - content panel (required)
+    ...
+  </div>
 </div>
 ```
 
