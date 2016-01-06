@@ -60,8 +60,10 @@ smarti.dock = function (jq, opts) {
 		that.slide(function () { that._setHover(); that.toggleHandle(); });
 	}
 	this.toggleHandle = function () {
-		that.handle.not("[data-handle='hidden']").toggle(that.docked);
-		that.handle.filter("[data-handle='hidden']").toggle(!that.docked);
+		if (that.handle.length > 1) {
+			that.handle.not("[data-handle='hidden']").toggle(that.docked);
+			that.handle.filter("[data-handle='hidden']").toggle(!that.docked);
+		}
 	}
 	this.slide = function (cb) {
 		var o1 = {}, o2 = {}; ds = that._ds();
