@@ -14,7 +14,7 @@ JQuery floating dock panel. Can be docked to content or autoslide on mouseover w
   <div data-handle="docked"> - default dock handle (required)
     ...
   </div>
-  <div data-handle="hidden"> - alternative dock handle when dock is hidden (optional)
+  <div data-handle="hidden"> - alternative dock handle when dock panel is hidden (optional)
     ...
   </div>
   <div data-content="true"> - content panel (required)
