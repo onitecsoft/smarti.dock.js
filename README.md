@@ -32,7 +32,7 @@ data-name="..." | name of js instance
 data-smarti="dock" | type of js instance (smarti.dock)
 data-dock-position="top \| right \| bottom \| left" | dock panel position (default:left)
 data-docked="true \| false" | defines if dock panel is docked on first load (default:true)
-data-dock-offset="0..9" | visible part of dock panel in pixels when hidden (default:10)
+data-dock-offset="..." | visible part of dock panel in pixels when hidden (default:10)
 data-use-storage="session \| local" | defines where to store docked state: sessionStorage or localStorage (default:null)
 
 <b>Dock panel attributes</b>
