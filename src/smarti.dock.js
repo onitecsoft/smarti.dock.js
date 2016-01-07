@@ -23,8 +23,8 @@ smarti.dock = function (jq, opts) {
 	$.extend(that, opts);
 
 	if (this.container.css('position') != 'absolute') this.container.css({ position: 'relative' });
-	this.dock = this.container.children('[data-dock]').css({ position: 'absolute', zIndex: 1 });
-	this.handle = this.container.children('[data-handle]').css({ position: 'absolute', zIndex: 2 });
+	this.dock = this.container.children('[data-dock]').css({ position: 'absolute', zIndex: 999 });
+	this.handle = this.container.children('[data-handle]').css({ position: 'absolute', zIndex: 1000 });
 	this.content = this.container.children('[data-content]').css({ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 });
 	this._storage = this.useStorage != null ? this.useStorage + 'Storage' : null;
 	if (this.container.height() == 0) this.container.height(300);
