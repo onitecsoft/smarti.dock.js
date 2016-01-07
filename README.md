@@ -47,4 +47,4 @@ Example: `style="top:20px; left:-10px"`
 
 <b>Content panel attributes</b>
 
-Can be applied any css class or style.
+Can be applied any css style.
