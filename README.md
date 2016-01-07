@@ -2,6 +2,8 @@
 
 JQuery floating dock panel. Can be docked to content or autoslide on mouseover when hidden.
 
+<b>Examples:</b> http://www.onitecsoft.com/smarti/dock
+
 <b>JSBin:</b> https://jsbin.com/huwakupezi/edit?html,output
 
 <b>Struncture:</b>
