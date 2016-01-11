@@ -13,7 +13,7 @@ JQuery floating dock panel. Can be docked to content or autoslide on mouseover w
   <div data-dock="true"> - dock panel (required)
     ...
   </div>
-  <div data-handle="docked"> - default dock handle (required)
+  <div data-handle="docked"> - default dock handle (optional)
     ...
   </div>
   <div data-handle="hidden"> - alternative dock handle when dock panel is hidden (optional)
@@ -35,6 +35,7 @@ data-smarti="dock" | type of js instance (smarti.dock)
 data-dock-position="top \| right \| bottom \| left" | dock panel position (default:left)
 data-docked="true \| false" | defines if dock panel is docked on first load (default:true)
 data-dock-offset="..." | visible part of dock panel in pixels when hidden (default:10)
+data-fixed-content="true \| false" | if set `true` then content will not be resized and dock panel become a slide panel
 data-use-storage="session \| local" | defines where to store docked state: sessionStorage or localStorage (default:null)
 
 <b>Dock panel attributes</b>
