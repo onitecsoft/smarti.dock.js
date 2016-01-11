@@ -27,7 +27,10 @@ smarti.dock = function (jq, opts) {
 	this.handle = this.container.children('[data-handle]').css({ position: 'absolute', zIndex: 1000 });
 	this.content = this.container.children('[data-content]').css({ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 });
 	this._storage = this.useStorage != null ? this.useStorage + 'Storage' : null;
-	if (this.container.height() == 0) this.container.height(300);
+	if (this.container.height() == 0) {
+		this.content.css({ bottom: 'auto' });
+		this.container.height(this.content.outerHeight(true));
+	}
 
 	this._ap = function () { return that.dockPosition == 'left' || that.dockPosition == 'right' ? ['top', 'bottom'] : ['left', 'right'] }
 	this._ds = function () { return that._ap()[0] == 'top' ? that.dock.outerWidth(true) : that.dock.outerHeight(true) }
