@@ -65,9 +65,11 @@ smarti.dock = function (jq, opts) {
 	}
 	this.toggle = function () {
 		that._setDocked(!that.docked);
-		var o = {};
-		o[that.dockPosition] = that.docked ? that._ds() : that.dockOffset;
-		that.content.animate(o);
+		if (!that.fixedContent) {
+			var o = {};
+			o[that.dockPosition] = that.docked ? that._ds() : that.dockOffset;
+			that.content.animate(o);
+		}
 		that.slide(function () { that._setHover(); that.toggleHandle(); });
 	}
 	this.toggleHandle = function () {
@@ -88,8 +90,11 @@ smarti.dock = function (jq, opts) {
 		});
 	}
 	this.docked = this._getDocked();
-	this.content.css(this.dockPosition, this.docked ? this._ds() : that.dockOffset);
-	this.dock.css(this.dockPosition, this.docked ? 0 : -this._ds() + that.dockOffset).css(this._ap()[0], 0).css(this._ap()[1], 0);
+	this.dock.css(this.dockPosition, this.docked ? 0 : -this._ds() + that.dockOffset);
+	if (!this.fixedContent) {
+		this.content.css(this.dockPosition, this.docked ? this._ds() : that.dockOffset);
+		this.dock.css(this._ap()[0], 0).css(this._ap()[1], 0);
+	}
 	this.handle.each(function () {
 		var jq = $(this);
 		var o = parseInt(jq.css(that.dockPosition)) || 0;
