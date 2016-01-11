@@ -28,8 +28,8 @@ smarti.dock = function (jq, opts) {
 	this.content = this.container.children('[data-content]').css({ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 });
 	this._storage = this.useStorage != null ? this.useStorage + 'Storage' : null;
 	if (this.container.height() == 0) {
+		this._autoHeight = true;
 		this.content.css({ bottom: 'auto' });
-		this.container.height(this.content.outerHeight(true));
 	}
 
 	this._ap = function () { return that.dockPosition == 'left' || that.dockPosition == 'right' ? ['top', 'bottom'] : ['left', 'right'] }
@@ -66,6 +66,12 @@ smarti.dock = function (jq, opts) {
 		var d = that._storage != null && window[that._storage] != null ? window[that._storage][that.name + 'Docked'] : null;
 		return d != null ? d == '1' : (that.docked != null ? that.docked : true);
 	}
+	this._fixHeight = function () {
+		if (that._autoHeight) {
+			var ds = !that.fixedContent && that._ap()[0] == 'left' ? (that.docked ? that._ds() : that.dockOffset) : 0;
+			that.container.height(that.content.outerHeight(true) + ds);
+		}
+	}
 	this.toggle = function () {
 		that._setDocked(!that.docked);
 		if (!that.fixedContent) {
@@ -73,7 +79,8 @@ smarti.dock = function (jq, opts) {
 			o[that.dockPosition] = that.docked ? that._ds() : that.dockOffset;
 			that.content.animate(o);
 		}
-		that.slide(function () { that._setHover(); that.toggleHandle(); });
+		if (that.docked) that._fixHeight();
+		that.slide(function () { that._setHover(); that.toggleHandle(); if (!that.docked) that._fixHeight(); });
 	}
 	this.toggleHandle = function () {
 		if (that.handle.length > 1) {
@@ -105,6 +112,7 @@ smarti.dock = function (jq, opts) {
 		jq.css(that.dockPosition, that.docked ? that._ds() + o : o + that.dockOffset);
 	});
 	this.handle.click(this.toggle);
+	this._fixHeight();
 	this._setHover();
 	this.toggleHandle();
 	return this;
