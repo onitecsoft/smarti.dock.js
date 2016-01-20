@@ -2,6 +2,8 @@
 
 JQuery floating dock panel. Can be docked to content or autoslide on mouseover when hidden.
 
+Automatically initializes when page is loaded. If content was loaded within ajax request, call JQuery extension method `smarti()` on container: `$(container).smarti();`
+
 <b>Examples:</b> http://www.onitecsoft.com/smarti/dock
 
 <b>JSBin:</b> https://jsbin.com/huwakupezi/edit?html,output
