@@ -6,7 +6,7 @@ JQuery floating dock panel. Can be docked to content or autoslide on mouseover w
 
 <b>JSBin:</b> https://jsbin.com/huwakupezi/edit?html,output
 
-<b>Struncture:</b>
+<b>Structure:</b>
 
 ```html
 <div ...> - container
