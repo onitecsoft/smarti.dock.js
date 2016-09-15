@@ -1,4 +1,4 @@
-var smarti = window['smarti'] || {};
+var smarti = this['smarti'] || { scope: this };
 
 $(function () {
 	if (!smarti.initialized) {
@@ -11,7 +11,7 @@ $.fn.smarti = function () {
 	$.each(this.selector == '[data-smarti]' ? this : this.find('[data-smarti]'), function () {
 		var jq = $(this);
 		var opts = jq.data();
-		window[opts.name] = new smarti[opts['smarti']](jq, opts);
+		smarti.scope[opts.name] = new smarti[opts['smarti']](jq, opts);
 	});
 }
 
@@ -60,10 +60,10 @@ smarti.dock = function (jq, opts) {
 	}
 	this._setDocked = function (docked) {
 		that.docked = docked;
-		if (that._storage != null && window[that._storage] != null) window[that._storage][that.name + 'Docked'] = docked ? '1' : '0';
+		if (that._storage != null && smarti.scope[that._storage] != null) smarti.scope[that._storage][that.name + 'Docked'] = docked ? '1' : '0';
 	}
 	this._getDocked = function () {
-		var d = that._storage != null && window[that._storage] != null ? window[that._storage][that.name + 'Docked'] : null;
+		var d = that._storage != null && smarti.scope[that._storage] != null ? smarti.scope[that._storage][that.name + 'Docked'] : null;
 		return d != null ? d == '1' : (that.docked != null ? that.docked : true);
 	}
 	this._fixHeight = function () {
