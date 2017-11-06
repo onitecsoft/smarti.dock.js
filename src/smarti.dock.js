@@ -3,12 +3,12 @@ var smarti = this['smarti'] || { scope: this };
 $(function () {
 	if (!smarti.initialized) {
 		smarti.initialized = true;
-		$('[data-smarti]').smarti();
+		$('[data-smarti]').smarti(true);
 	}
 })
 
-$.fn.smarti = function () {
-	$.each(this.selector == '[data-smarti]' ? this : this.find('[data-smarti]'), function () {
+$.fn.smarti = function (auto) {
+	$.each(auto ? this : this.find('[data-smarti]'), function () {
 		var jq = $(this);
 		var opts = jq.data();
 		smarti.scope[opts.name] = new smarti[opts['smarti']](jq, opts);
